@@ -64,3 +64,10 @@ body {
 .btn:hover {
     background-color: #f5313b;
 }
+
+/* Card*/
+
+.card__img {
+    height: 120px;
+    width: 120px;
+}
