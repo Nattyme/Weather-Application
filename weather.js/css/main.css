@@ -1,1 +1,66 @@
 @import "./reset.css";
+
+
+body {
+    font-family: 'Rubik', sans-serif;
+}
+/* Header*/
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 40px 15px 50px;
+    background: linear-gradient(93deg, #4CB8C4 0%, #3CD3AD 100%), #232323;
+}
+
+.title {
+    margin-bottom: 20px;
+
+    text-align: center;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.18;
+    color: #FFF;
+}
+
+.form {
+    display: flex;
+    justify-content: space-between;
+    height: 57px;
+    width: 467px;
+    border-radius: 6px;
+
+    background: #FFF;
+}
+
+.input {
+    padding: 15px;
+    flex-grow: 1;
+
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1;
+
+    color: #030303;
+}
+
+.btn {
+    width: 150px;
+    height: 57px;
+    background: #E7464F;
+    border-radius: 6px;
+
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1;
+    color: #FFF;
+
+    transition: background-color 0.2s ease-in;
+}
+
+.btn:hover {
+    background-color: #f5313b;
+}
