@@ -5,6 +5,34 @@ const header = document.querySelector(".header");
 const form = document.querySelector("#form");
 const input = document.querySelector("#inputCity");
 
+
+function removeCard() {
+    const prevCard = document.querySelector(".card");
+    if (prevCard) prevCard.remove();
+}
+
+function showError(errorMessage) {
+    const html = `<div class="card">${errorMessage}</div>`;
+    header.insertAdjacentHTML("afterend", html);
+}
+
+function showCard(name, country, temp, condition) {
+    // Разметка для карточки
+    const html = `
+    <div class="card">
+    <h2 class="card__city">${name}<span>${country}</span></h2>
+    <div class="card__weather">
+      <div class="card__value">${data.current.temp_c}<sup>°с</sup></div>
+
+      <img class="card__img" src="./img/sun/8.png" alt="cloudy" />
+    </div>
+    <div class="card__discription">${data.current.condition.text}</div>
+  </div>
+  `;
+    // Отображаем карточку на странице
+    header.insertAdjacentHTML("afterend", html);
+}
+
 // Слушаем отправку формы
 form.onsubmit = function (e) {
   //Отменяем отправку формы
@@ -26,36 +54,17 @@ form.onsubmit = function (e) {
       // Проверка на ошибку
       if (data.error) {
         // Если есть ошибка - выводим ее
-
-        // Удаляем предыдущую карточку
-        const prevCard = document.querySelector(".card");
-        if (prevCard) prevCard.remove();
-
-        const html = `<div class="card">${data.error.message}</div>`;
-        // Отображаем карточку на странице
-        header.insertAdjacentHTML("afterend", html);
+        removeCard();
+        showError(data.error.message);
       } else {
         // Если ошибки нет - выводим карточку
-        // Отображаем полученные данные в карточке
-        // Удаляем предыдущую карточку
-        const prevCard = document.querySelector(".card");
-        if (prevCard) prevCard.remove();
-
-        // Разметка для карточки
-        const html = `
-        <div class="card">
-        <h2 class="card__city">${data.location.name}<span>${data.location.country}</span></h2>
-        <div class="card__weather">
-          <div class="card__value">${data.current.temp_c}<sup>°с</sup></div>
-
-          <img class="card__img" src="./img/sun/8.png" alt="cloudy" />
-        </div>
-        <div class="card__discription">${data.current.condition.text}</div>
-      </div>
-      `;
-
-        // Отображаем карточку на странице
-        header.insertAdjacentHTML("afterend", html);
+        removeCard();
+        showCard(
+            data.location.name,
+            data.location.country,
+            data.current.temp_c,
+            data.current.condition.text
+            );
       }
     });
 };
