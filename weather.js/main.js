@@ -1,4 +1,6 @@
+import conditions from '/conditions.js';
 const apiKey = "455c33619df04d9cb2a94255231711";
+console.log(conditions);
 
 // Элементы на странице
 const header = document.querySelector(".header");
@@ -41,6 +43,7 @@ async function getWeather(city) {
   return data;
 }
 
+
 // Слушаем отправку формы
 form.onsubmit = async function (e) {
   //Отменяем отправку формы
@@ -55,6 +58,7 @@ form.onsubmit = async function (e) {
     showError(data.error.message);
   } else {
     removeCard();
+    // Получаем условие 
     const weatherData = {
       name: data.location.name,
       country: data.location.country,
