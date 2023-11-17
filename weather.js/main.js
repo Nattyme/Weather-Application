@@ -29,6 +29,12 @@ form.onsubmit = function (e){
         console.log(data.current.condition.text);
 
         // Отображаем полученные данные в карточке
+
+        // Удаляем предыдущую карточку 
+        const prevCard = document.querySelector('.card');
+        if(prevCard) prevCard.remove();
+
+
         // Разметка для карточки 
         const html = `
         <div class="card">
