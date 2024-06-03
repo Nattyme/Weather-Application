@@ -1,7 +1,5 @@
-import conditions from '/conditions.js';
-const apiKey = "455c33619df04d9cb2a94255231711";
-console.log(conditions);
-
+import conditions from "./conditions.js";
+const apiKey = "42d93d553a52487d9b0105850240306";
 // Элементы на странице
 const header = document.querySelector(".header");
 const form = document.querySelector("#form");
@@ -17,7 +15,7 @@ function showError(errorMessage) {
   header.insertAdjacentHTML("afterend", html);
 }
 
-function showCard({name, country, temp, condition}) {
+function showCard({name, country, temp, imgPath, condition}) {
   // Разметка для карточки
   const html = `
     <div class="card">
@@ -25,7 +23,7 @@ function showCard({name, country, temp, condition}) {
     <div class="card__weather">
       <div class="card__value">${temp}<sup>°с</sup></div>
 
-      <img class="card__img" src="./img/sun/8.png" alt="cloudy" />
+      <img class="card__img" src="${imgPath}" alt="cloudy" />
     </div>
     <div class="card__discription">${condition}</div>
   </div>
@@ -58,13 +56,27 @@ form.onsubmit = async function (e) {
     showError(data.error.message);
   } else {
     removeCard();
+    console.log(data.current.condition.code)
+    
+    const info = conditions.find((obj) => obj.code === data.current.condition.code);
+    console.log(info)
+    console.log(info.languages)
+
+    const filePath = './img/' + (data.current.is_day ? 'day' : 'night') + '/';
+    const fileName = (data.current.is_day ? info.day : info.night) + '.png';
+    const imgPath = filePath + fileName;
+    console.log(imgPath);
+    
     // Получаем условие 
     const weatherData = {
       name: data.location.name,
       country: data.location.country,
       temp: data.current.temp_c,
-      condition: data.current.condition.text
+      condition: data.current.is_day ? info.languages[23]['day_text'] 
+      : info.languages[23]['night_text'],
+      imgPath,
     };
+
     showCard(weatherData);
   }
 
